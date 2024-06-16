@@ -97,7 +97,7 @@ $checkbox5.Font=$TextFont
 $checkbox5.ForeColor='#ffffff'
 $checkbox5.BackColor='#363636'
 $PsGuiTab1.Controls.Add($checkbox5)
-function SevenZipInstall {
+function 7ZipInstall {
     Start-Process "winget" -ArgumentList "install -e --id 7zip.7zip" -Wait
 }
 
