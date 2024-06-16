@@ -142,6 +142,16 @@ $PsGuiTab2.Font=$TitleFont
 
 
 $PsGuiTabs.TabPages.Add($PsGuiTab2)
+
+# CLI aken
+############################################
+$PsGuiTab3=New-Object $TabPageObject
+$PsGuiTab3.Text='CLI'
+$PsGuiTab3.BackColor='#363636'
+$PsGuiTab3.Font=$TitleFont
+
+$PsGuiTabs.TabPages.Add($PsGuiTab3)
+
 # Näita GUI vormi
 $PsGuiForm.ShowDialog()
 
