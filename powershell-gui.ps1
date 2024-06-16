@@ -97,7 +97,7 @@ $checkbox5.Font=$TextFont
 $checkbox5.ForeColor='#ffffff'
 $checkbox5.BackColor='#363636'
 $PsGuiTab1.Controls.Add($checkbox5)
-function 7ZipInstall {
+function ZipInstall {
     Start-Process "winget" -ArgumentList "install -e --id 7zip.7zip" -Wait
 }
 
@@ -123,7 +123,7 @@ $install_button.Add_Click({
         SpotifyInstall
     }
     if ($checkbox5.Checked) {
-        7ZipInstall
+        ZipInstall
     }
 })
 
