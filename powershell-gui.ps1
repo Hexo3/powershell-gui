@@ -7,7 +7,7 @@ $CheckBoxObject = [System.Windows.Forms.CheckBox]
 $LabelObject = [System.Windows.Forms.Label]
 $ComboBoxObject = [System.Windows.Forms.ComboBox]
 $ButtonObject = [System.Windows.Forms.Button]
-$TextObject = [System.Windows.Forms.TextBox]
+$TextBoxObject = [System.Windows.Forms.TextBox]
 
 $TitleFont='Verdana,13'
 $TextFont='Verdana,10'
@@ -26,7 +26,7 @@ $PsGuiTabs.Size='600,400'
 $PsGuiTabs.Font=$TitleFont
 $PsGuiForm.Controls.Add($PsGuiTabs)
 
-# Peamine aken
+# Tarkvara paigalduse aken
 ############################################
 $PsGuiTab1=New-Object $TabPageObject
 $PsGuiTab1.Text='Tarkvara'
@@ -110,6 +110,7 @@ $install_button.Font=$TextFont
 $install_button.ForeColor='#ffffff'
 $install_button.BackColor='#686868'
 $PsGuiTab1.Controls.Add($install_button)
+# Kontrollib kas valikukast on valitud ja kui on siis paigaldab valitud tarkvara.
 $install_button.Add_Click({
     if ($checkbox1.Checked) {
         GoogleChromeInstall
@@ -151,6 +152,41 @@ $PsGuiTab3.Text='CLI'.toupper()
 $PsGuiTab3.BackColor='#363636'
 $PsGuiTab3.Font=$TitleFont
 
+$cli_textbox = New-Object $TextBoxObject
+$cli_textbox.Text='Sisesta oma skript siia'
+$cli_textbox.Font=$TextFont
+$cli_textbox.Location=New-Object System.Drawing.Point(30,30)
+$cli_textbox.Size=New-Object System.Drawing.Point(530,130)
+$cli_textbox.Multiline=$true
+$cli_textbox.ForeColor='#ffffff'
+$cli_textbox.BackColor='#686868'
+$PsGuiTab3.Controls.Add($cli_textbox)
+
+$cli_output = New-Object $TextBoxObject
+$cli_output.Text='Väljund'
+$cli_output.Font=$TextFont
+$cli_output.Location=New-Object System.Drawing.Point(30, 210)
+$cli_output.Size=New-Object System.Drawing.Point(530,130)
+$cli_output.Multiline=$true
+$cli_output.ForeColor='#ffffff'
+$cli_output.BackColor='#686868'
+$PsGuiTab3.Controls.Add($cli_output)
+
+$cli_run_script_button=New-Object $ButtonObject
+$cli_run_script_button.Text='Stardi skript'
+$cli_run_script_button.AutoSize=$true
+$cli_run_script_button.Font=$TextFont
+$cli_run_script_button.ForeColor='#ffffff'
+$cli_run_script_button.Location=New-Object System.Drawing.Point(30,170)
+$PsGuiTab3.Controls.Add($cli_run_script_button)
+
+# Jooksutab tekstikastis oleva skripti powershellis
+function RunScript{
+    $custom_script = $cli_textbox.Text
+    $cli_output.Text = Invoke-Expression -Command $custom_script
+}
+$cli_run_script_button.Add_Click({RunScript})
+
 $PsGuiTabs.TabPages.Add($PsGuiTab3)
 
 # Teenuste haldus
@@ -175,7 +211,7 @@ $service_tab_combo_box.Location=New-Object System.Drawing.Point(130,30)
 $service_tab_combo_box.Text='Vali teenus'
 $service_tab_combo_box.ForeColor='#000000'
 
-#Lae rippmenüü teenused
+#Lae teenused rippmenüüsse
 Get-Service | ForEach-Object {$service_tab_combo_box.Items.Add($_.Name)}
 
 $PsGuiTab4.Controls.Add($service_tab_combo_box)
