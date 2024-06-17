@@ -5,6 +5,7 @@ $TabObject = [System.Windows.Forms.TabControl]
 $TabPageObject = [System.Windows.Forms.TabPage]
 $CheckBoxObject = [System.Windows.Forms.CheckBox]
 $LabelObject = [System.Windows.Forms.Label]
+$ComboBoxObject = [System.Windows.Forms.ComboBox]
 $ButtonObject = [System.Windows.Forms.Button]
 $TextObject = [System.Windows.Forms.TextBox]
 
@@ -28,7 +29,7 @@ $PsGuiForm.Controls.Add($PsGuiTabs)
 # Peamine aken
 ############################################
 $PsGuiTab1=New-Object $TabPageObject
-$PsGuiTab1.Text='Peamine'
+$PsGuiTab1.Text='Tarkvara'
 $PsGuiTab1.BackColor='#363636'
 $PsGuiTab1.Font=$TitleFont
 
@@ -134,7 +135,7 @@ $PsGuiTabs.TabPages.Add($PsGuiTab1)
 # Skiptide aken
 ############################################
 $PsGuiTab2=New-Object $TabPageObject
-$PsGuiTab2.Text='Skriptid'
+$PsGuiTab2.Text='Skriptid'.toupper()
 $PsGuiTab2.BackColor='#363636'
 $PsGuiTab2.Font=$TitleFont
 
@@ -146,13 +147,119 @@ $PsGuiTabs.TabPages.Add($PsGuiTab2)
 # CLI aken
 ############################################
 $PsGuiTab3=New-Object $TabPageObject
-$PsGuiTab3.Text='CLI'
+$PsGuiTab3.Text='CLI'.toupper()
 $PsGuiTab3.BackColor='#363636'
 $PsGuiTab3.Font=$TitleFont
 
 $PsGuiTabs.TabPages.Add($PsGuiTab3)
 
-# Näita GUI vormi
+# Teenuste haldus
+############################################
+$PsGuiTab4=New-Object $TabPageObject
+$PsGuiTab4.Text='Teenuste Haldus'.toupper()
+$PsGuiTab4.BackColor='#363636'
+$PsGuiTab4.Font=$TitleFont
+
+# Teenuste vorm
+$service_tab_label=New-Object $LabelObject
+$service_tab_label.Text='Teenus:'.toupper()
+$service_tab_label.Location=New-Object System.Drawing.Point(30,30)
+$service_tab_label.AutoSize=$true
+$service_tab_label.ForeColor='#ffffff'
+$service_tab_label.Font=$TitleFont
+$PsGuiTab4.Controls.Add($service_tab_label)
+
+$service_tab_combo_box=New-Object $ComboBoxObject
+$service_tab_combo_box.Width='300'
+$service_tab_combo_box.Location=New-Object System.Drawing.Point(130,30)
+$service_tab_combo_box.Text='Vali teenus'
+$service_tab_combo_box.ForeColor='#000000'
+
+#Lae rippmenüü teenused
+Get-Service | ForEach-Object {$service_tab_combo_box.Items.Add($_.Name)}
+
+$PsGuiTab4.Controls.Add($service_tab_combo_box)
+
+#Teenuste info
+
+$service_name_label=New-Object $LabelObject
+$service_name_label.Text='Valitud teenuse nimi:'
+$service_name_label.Font=$TitleFont
+$service_name_label.ForeColor='#ffffff'
+$service_name_label.AutoSize=$true
+$service_name_label.Location=New-Object System.Drawing.Point(30,70)
+$PsGuiTab4.Controls.Add($service_name_label)
+
+$name_label=New-Object $LabelObject
+$name_label.Text='N/A'
+$name_label.ForeColor='#ffffff'
+$name_label.AutoSize=$true
+$name_label.Font=$TitleFont
+$name_label.Location=New-Object System.Drawing.Point(240,70)
+$PsGuiTab4.Controls.Add($name_label)
+
+$service_status_label=New-Object $LabelObject
+$service_status_label.Text='Staatus:'
+$service_status_label.ForeColor='#ffffff'
+$service_status_label.AutoSize=$true
+$service_status_label.Location=New-Object System.Drawing.Point(30,100)
+$PsGuiTab4.Controls.Add($service_status_label)
+
+$status_label=New-Object $LabelObject
+$status_label.Text='N/A'
+$status_label.ForeColor='#ffffff'
+$status_label.AutoSize=$true
+$status_label.Location=New-Object System.Drawing.Point(240,100)
+$PsGuiTab4.Controls.Add($status_label)
+
+$service_start_button=New-Object $ButtonObject
+$service_start_button.Text='Start Service'
+$service_start_button.AutoSize=$true
+$service_start_button.Font=$TextFont
+$service_start_button.ForeColor='#ffffff'
+$service_start_button.Location=New-Object System.Drawing.Point(30,140)
+$PsGuiTab4.Controls.Add($service_start_button)
+
+$service_stop_button=New-Object $ButtonObject
+$service_stop_button.Text='Stop Service'
+$service_stop_button.AutoSize=$true
+$service_stop_button.Font=$TextFont
+$service_stop_button.ForeColor='#ffffff'
+$service_stop_button.Location=New-Object System.Drawing.Point(160,140)
+$PsGuiTab4.Controls.Add($service_stop_button)
+
+# Funktsioon teenuste staatuse ja nime saamiseks.
+function GetServiceDetails{
+    $ServiceName=$service_tab_combo_box.SelectedItem
+    $details=Get-Service -Name $ServiceName | select *
+    $name_label.Text=$details.name
+    $status_label.Text=$details.status
+
+    if($status_label.text -eq 'Running') {
+    $status_label.ForeColor='green'
+    } else {
+    $status_label.ForeColor='red'
+    }
+}
+$service_tab_combo_box.Add_SelectedIndexChanged({GetServiceDetails})
+
+# Funktsioon Teenuse Käivitamiseks
+function StartService {
+    Start-Service -Name $name_label.Text
+}
+$service_start_button.Add_Click({StartService})
+
+# Funktsioon Teenuse peatamiseks
+function StopService{
+    Stop-Service -Force -Name $name_label.Text
+}
+$service_stop_button.Add_Click({StopService})
+
+
+$PsGuiTabs.TabPages.Add($PsGuiTab4)
+
+# Näitab GUI vormi
+############################################
 $PsGuiForm.ShowDialog()
 
 # Prügikorje (Eemaldab GUI programmi jäägid)
