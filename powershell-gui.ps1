@@ -140,8 +140,145 @@ $PsGuiTab2.Text='Skriptid'.toupper()
 $PsGuiTab2.BackColor='#363636'
 $PsGuiTab2.Font=$TitleFont
 
+# Hyper-V lubamine
+############################################
+$hyperv_enable_btn=New-Object $ButtonObject
+$hyperv_enable_btn.Text='Luba Hyper-V'
+$hyperv_enable_btn.Font=$TextFont
+$hyperv_enable_btn.ForeColor='#ffffff'
+$hyperv_enable_btn.Location=New-Object System.Drawing.Point(30,30)
+$hyperv_enable_btn.Size = New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($hyperv_enable_btn)
+# Hyper-V lubamise funktsioon teisest skriptist
+$hyperv_enable_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/EnableHyperV.ps1"
+})
 
+# Näita süsteemi tööaeg
+############################################
+$system_uptime_btn=New-Object $ButtonObject
+$system_uptime_btn.Text='Naita susteemi tooaega'
+$system_uptime_btn.Font=$TextFont
+$system_uptime_btn.ForeColor='#ffffff'
+$system_uptime_btn.Location=New-Object System.Drawing.Point(30,70)
+$system_uptime_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($system_uptime_btn)
+# Süsteemi tööaja näitamise funktsioon teisest skriptist
+$system_uptime_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisplaySystemUptime.ps1"
+})
 
+# Näita süsteemi info
+############################################
+$system_info_btn=New-Object $ButtonObject
+$system_info_btn.Text='Naita susteemi infot'
+$system_info_btn.Font=$TextFont
+$system_info_btn.ForeColor='#ffffff'
+$system_info_btn.Location=New-Object System.Drawing.Point(30,110)
+$system_info_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($system_info_btn)
+# Süsteemi info näitamise funktsioon teisest skriptist
+$system_info_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisplaySystemInfo.ps1"
+})
+
+# Näita protsessori kasutust
+############################################
+$cpu_usage_btn=New-Object $ButtonObject
+$cpu_usage_btn.Text='Naita protsessori kasutust'
+$cpu_usage_btn.Font=$TextFont
+$cpu_usage_btn.ForeColor='#ffffff'
+$cpu_usage_btn.Location=New-Object System.Drawing.Point(30,150)
+$cpu_usage_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($cpu_usage_btn)
+# Protsessori kasutuse näitamise funktsioon teisest skriptist
+$cpu_usage_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisplayCpuUsage.ps1"
+})
+
+# Näita mälu kasutust
+############################################
+$memory_usage_btn=New-Object $ButtonObject
+$memory_usage_btn.Text='Naita malu kasutust'
+$memory_usage_btn.Font=$TextFont
+$memory_usage_btn.ForeColor='#ffffff'
+$memory_usage_btn.Location=New-Object System.Drawing.Point(30,190)
+$memory_usage_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($memory_usage_btn)
+# Mälu kasutuse näitamise funktsioon teisest skriptist
+$memory_usage_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisplayMemoryUsage.ps1"
+})
+
+# Näita kõvaketaste kasutust
+############################################
+$disk_usage_btn=New-Object $ButtonObject
+$disk_usage_btn.Text='Kovaketaste kasutust'
+$disk_usage_btn.Font=$TextFont
+$disk_usage_btn.ForeColor='#ffffff'
+$disk_usage_btn.Location=New-Object System.Drawing.Point(260,30)
+$disk_usage_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($disk_usage_btn)
+# Kõvaketaste kasutuse näitamise funktsioon teisest skriptist
+$disk_usage_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisplayDiskUsage.ps1"
+})
+
+# Kasutusoleva võrgu lokaalne IP
+############################################
+$network_local_ipv4_btn=New-Object $ButtonObject
+$network_local_ipv4_btn.Text='Naita lokaalse vorgu IP'
+$network_local_ipv4_btn.Font=$TextFont
+$network_local_ipv4_btn.ForeColor='#ffffff'
+$network_local_ipv4_btn.Location=New-Object System.Drawing.Point(260,70)
+$network_local_ipv4_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($network_local_ipv4_btn)
+# Võrgu info näitamise funktsioon teisest skriptist
+$network_local_ipv4_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisplayNetworkLocalIP.ps1"
+})
+
+# Tühjenda ajutiste failide kaust
+############################################
+$temp_folder_btn=New-Object $ButtonObject
+$temp_folder_btn.Text='Tuhjenda ajutised failid'
+$temp_folder_btn.Font=$TextFont
+$temp_folder_btn.ForeColor='#ffffff'
+$temp_folder_btn.Location=New-Object System.Drawing.Point(260,110)
+$temp_folder_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($temp_folder_btn)
+# Temp kausta tühjendamise funktsioon teisest skriptist
+$temp_folder_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/ClearTempFolder.ps1"
+})
+
+# Tühjenda prügikast
+############################################
+$recycle_bin_btn=New-Object $ButtonObject
+$recycle_bin_btn.Text='Tuhjenda prugikast'
+$recycle_bin_btn.Font=$TextFont
+$recycle_bin_btn.ForeColor='#ffffff'
+$recycle_bin_btn.Location=New-Object System.Drawing.Point(260,150)
+$recycle_bin_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($recycle_bin_btn)
+# Prügikasti tühjendamise funktsioon teisest skriptist
+$recycle_bin_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/ClearRecycleBin.ps1"
+})
+
+# Lülitab telemeetria välja
+############################################
+$telemetry_disable_btn=New-Object $ButtonObject
+$telemetry_disable_btn.Text='Lulita telemetria valja'
+$telemetry_disable_btn.Font=$TextFont
+$telemetry_disable_btn.ForeColor='#ffffff'
+$telemetry_disable_btn.Location=New-Object System.Drawing.Point(260,190)
+$telemetry_disable_btn.Size=New-Object System.Drawing.Size(200,30)
+$PsGuiTab2.Controls.Add($telemetry_disable_btn)
+# Telemeetria väljalülitamise funktsioon teisest skriptist
+$telemetry_disable_btn.Add_Click({
+    Start-Process "powershell" -ArgumentList "scripts/DisableTelemetry.ps1"
+})
 
 $PsGuiTabs.TabPages.Add($PsGuiTab2)
 
