@@ -152,22 +152,29 @@ $PsGuiTab3.Text='CLI'.toupper()
 $PsGuiTab3.BackColor='#363636'
 $PsGuiTab3.Font=$TitleFont
 
+
+
 $cli_textbox = New-Object $TextBoxObject
 $cli_textbox.Text='Sisesta oma skript siia'
 $cli_textbox.Font=$TextFont
 $cli_textbox.Location=New-Object System.Drawing.Point(30,30)
-$cli_textbox.Size=New-Object System.Drawing.Point(530,130)
-$cli_textbox.Multiline=$true
+$cli_textbox.Size=New-Object System.Drawing.Size(530,130)
+$cli_textBox.Multiline=$true
+$cli_textBox.ScrollBars='Vertical'
+$cli_textBox.WordWrap=$true
 $cli_textbox.ForeColor='#ffffff'
 $cli_textbox.BackColor='#686868'
+
 $PsGuiTab3.Controls.Add($cli_textbox)
 
 $cli_output = New-Object $TextBoxObject
 $cli_output.Text='Väljund'
 $cli_output.Font=$TextFont
 $cli_output.Location=New-Object System.Drawing.Point(30, 210)
-$cli_output.Size=New-Object System.Drawing.Point(530,130)
+$cli_output.Size=New-Object System.Drawing.Size(530,130)
 $cli_output.Multiline=$true
+$cli_output.ScrollBars='Vertical'
+$cli_output.WordWrap=$true
 $cli_output.ForeColor='#ffffff'
 $cli_output.BackColor='#686868'
 $PsGuiTab3.Controls.Add($cli_output)
