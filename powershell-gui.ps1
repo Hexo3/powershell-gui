@@ -310,6 +310,7 @@ $cli_output.Font=$TextFont
 $cli_output.Location=New-Object System.Drawing.Point(30, 210)
 $cli_output.Size=New-Object System.Drawing.Size(530,130)
 $cli_output.Multiline=$true
+$cli_output.ReadOnly=$true
 $cli_output.ScrollBars='Vertical'
 $cli_output.WordWrap=$true
 $cli_output.ForeColor='#ffffff'
